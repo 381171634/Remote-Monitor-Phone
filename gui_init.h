@@ -12,9 +12,11 @@ public:
     QScroller *sc_lasted = nullptr;
     QScroller *sc_history = nullptr;
     QScreen *screen = nullptr;
+
     int getPixByPt(int Pt);
     float getScaleByPt(int Pt);
     int getFontByPt(int Pt);
+
 };
 
 #endif // GUI_INIT_H

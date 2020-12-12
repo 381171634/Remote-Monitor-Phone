@@ -23,3 +23,24 @@ void MainWindow::on_lineEdit_returnPressed()
         ui->lineEdit->text().clear();
     }
 }
+
+void MainWindow::on_pushButton_clicked()
+{
+    if(ui->pushButton->text() == QString("连接设备"))
+    {
+        ui->label_3->setEnabled(true);
+        ui->groupBox->setEnabled(true);
+        ui->label_4->setEnabled(true);
+        ui->scrollArea->setEnabled(true);
+        ui->pushButton->setText(QString("断开连接"));
+    }
+    else if(ui->pushButton->text() == QString("断开连接"))
+    {
+        ui->label_3->setEnabled(false);
+        ui->groupBox->setEnabled(false);
+        ui->label_4->setEnabled(false);
+        ui->scrollArea->setEnabled(false);
+        ui->pushButton->setText(QString("连接设备"));
+    }
+
+}

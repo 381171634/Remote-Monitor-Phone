@@ -19,6 +19,11 @@ int GUI_INIT::getFontByPt(int Pt)
 
 void MainWindow::Gui_init()
 {
+    //未连接时隐藏无关插件
+    ui->label_3->setEnabled(false);
+    ui->groupBox->setEnabled(false);
+    ui->label_4->setEnabled(false);
+    ui->scrollArea->setEnabled(false);
     //屏幕适配
     gui_init.screen = QGuiApplication::primaryScreen();
     gui_init.DPI = gui_init.screen->logicalDotsPerInch();
