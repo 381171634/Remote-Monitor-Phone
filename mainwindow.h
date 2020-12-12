@@ -5,19 +5,12 @@
 #include <QScreen>
 #include <QtDebug>
 #include <QScroller>
+#include "gui_init.h"
 namespace Ui {
 class MainWindow;
 }
 
-class FitScreen
-{
-public:
-    int DPI;
-    int height;
-    int getPixByPt(int Pt);
-    float getScaleByPt(int Pt);
-    int getFontByPt(int Pt);
-};
+
 
 class MainWindow : public QMainWindow
 {
@@ -26,11 +19,9 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    QScroller *sc_lasted = nullptr;
-    QScroller *sc_history = nullptr;
 
-    FitScreen fitScreen;
-    QScreen *screen = nullptr;
+    GUI_INIT gui_init;
+
 
     void Gui_init();
 private slots:

@@ -30,6 +30,7 @@ SOURCES += \
         mainwindow.cpp
 
 HEADERS += \
+        gui_init.h \
         mainwindow.h
 
 FORMS += \
