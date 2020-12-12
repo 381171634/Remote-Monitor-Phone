@@ -6,6 +6,7 @@
 #include <QtDebug>
 #include <QScroller>
 #include "gui_init.h"
+#include "proc.h"
 namespace Ui {
 class MainWindow;
 }
@@ -21,7 +22,7 @@ public:
     ~MainWindow();
 
     GUI_INIT gui_init;
-
+    PROC     proc;
 
     void Gui_init();
 private slots:
