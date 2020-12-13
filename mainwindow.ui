@@ -60,8 +60,14 @@
         <pointsize>12</pointsize>
        </font>
       </property>
+      <property name="focusPolicy">
+       <enum>Qt::ClickFocus</enum>
+      </property>
       <property name="styleSheet">
        <string notr="true"/>
+      </property>
+      <property name="inputMethodHints">
+       <set>Qt::ImhDigitsOnly</set>
       </property>
       <property name="text">
        <string/>
@@ -115,6 +121,19 @@
      </widget>
     </item>
     <item>
+     <widget class="QLabel" name="label_8">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item>
      <widget class="QLabel" name="label_3">
       <property name="text">
        <string>设备最近一次数据</string>
@@ -159,11 +178,17 @@
          <property name="selectionMode">
           <enum>QAbstractItemView::NoSelection</enum>
          </property>
+         <property name="verticalScrollMode">
+          <enum>QAbstractItemView::ScrollPerPixel</enum>
+         </property>
+         <property name="horizontalScrollMode">
+          <enum>QAbstractItemView::ScrollPerPixel</enum>
+         </property>
          <property name="showGrid">
           <bool>true</bool>
          </property>
          <attribute name="horizontalHeaderVisible">
-          <bool>false</bool>
+          <bool>true</bool>
          </attribute>
          <attribute name="horizontalHeaderHighlightSections">
           <bool>true</bool>
@@ -183,27 +208,27 @@
          </column>
          <column>
           <property name="text">
-           <string>温度</string>
+           <string>温度/℃</string>
           </property>
          </column>
          <column>
           <property name="text">
-           <string>湿度</string>
+           <string>湿度/%RH</string>
           </property>
          </column>
          <column>
           <property name="text">
-           <string>甲醛</string>
+           <string>甲醛/mg/m3</string>
           </property>
          </column>
          <column>
           <property name="text">
-           <string>二氧化碳</string>
+           <string>二氧化碳/ppm</string>
           </property>
          </column>
          <column>
           <property name="text">
-           <string>电池电压</string>
+           <string>电池电压/V</string>
           </property>
          </column>
          <item row="0" column="0">
@@ -249,408 +274,381 @@
      </widget>
     </item>
     <item>
-     <widget class="QScrollArea" name="scrollArea">
-      <property name="styleSheet">
-       <string notr="true">QScrollArea
-{
-border:none;
-}
-QScrollBar:vertical
-{
-    width:8px;
-    background:rgba(0,0,0,0%);
-    margin:0px,0px,0px,0px;
-	padding-top:9px; 
-    padding-bottom:9px;
-    
-}
-QScrollBar::handle:vertical
-{
-    width:8px;
-    background:rgba(0,0,0,25%);
-    border-radius:4px;  
-    min-height:20;
-}
-
-QScrollBar::add-page:vertical,QScrollBar::sub-page:vertical   
-{
-    background:rgba(0,0,0,10%);
-    border-radius:4px;
-}
-
-QScrollBar::add-line:vertical   
-{
-    height:0px;width:8px;
-
-}
-QScrollBar::sub-line:vertical   
-{
-    height:0px;width:8px;
-
-}</string>
+     <widget class="QGroupBox" name="groupBox_2">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
       </property>
-      <property name="widgetResizable">
-       <bool>true</bool>
+      <property name="title">
+       <string/>
       </property>
-      <widget class="QWidget" name="scrollAreaWidgetContents">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>302</width>
-         <height>215</height>
-        </rect>
-       </property>
-       <layout class="QGridLayout" name="gridLayout">
-        <item row="1" column="0">
-         <widget class="QGroupBox" name="groupBox_2">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_5">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>起始日期</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="label_6">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>结束日期</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0" colspan="2">
+        <widget class="QTableWidget" name="tableWidget">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
+         <property name="verticalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
+         </property>
+         <property name="horizontalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
+         </property>
+         <property name="sizeAdjustPolicy">
+          <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::NoSelection</enum>
+         </property>
+         <property name="verticalScrollMode">
+          <enum>QAbstractItemView::ScrollPerPixel</enum>
+         </property>
+         <property name="horizontalScrollMode">
+          <enum>QAbstractItemView::ScrollPerPixel</enum>
+         </property>
+         <property name="gridStyle">
+          <enum>Qt::SolidLine</enum>
+         </property>
+         <property name="sortingEnabled">
+          <bool>true</bool>
+         </property>
+         <property name="rowCount">
+          <number>100</number>
+         </property>
+         <attribute name="verticalHeaderVisible">
+          <bool>false</bool>
+         </attribute>
+         <row>
+          <property name="text">
+           <string>新建行</string>
           </property>
-          <property name="title">
-           <string/>
+         </row>
+         <row>
+          <property name="text">
+           <string>新建行</string>
           </property>
-          <layout class="QGridLayout" name="gridLayout_3">
-           <item row="3" column="0" colspan="2">
-            <widget class="QTableWidget" name="tableWidget">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="focusPolicy">
-              <enum>Qt::NoFocus</enum>
-             </property>
-             <property name="verticalScrollBarPolicy">
-              <enum>Qt::ScrollBarAlwaysOff</enum>
-             </property>
-             <property name="horizontalScrollBarPolicy">
-              <enum>Qt::ScrollBarAlwaysOff</enum>
-             </property>
-             <property name="sizeAdjustPolicy">
-              <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
-             </property>
-             <property name="selectionMode">
-              <enum>QAbstractItemView::NoSelection</enum>
-             </property>
-             <property name="rowCount">
-              <number>100</number>
-             </property>
-             <attribute name="verticalHeaderVisible">
-              <bool>false</bool>
-             </attribute>
-             <row>
-              <property name="text">
-               <string>新建行</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>新建行</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>新建行</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>新建行</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>新建行</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>新建行</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>新建行</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>新建行</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>新建行</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>新建行</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>新建行</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>新建行</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>新建行</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>新建行</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>新建行</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>新建行</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>新建行</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>新建行</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>新建行</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>新建行</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>新建行</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>新建行</string>
-              </property>
-             </row>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <row/>
-             <column>
-              <property name="text">
-               <string>时间</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>温度</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>湿度</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>甲醛</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>二氧化碳</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>电池电压</string>
-              </property>
-             </column>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QDateEdit" name="dateEdit_2">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-             <property name="buttonSymbols">
-              <enum>QAbstractSpinBox::NoButtons</enum>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QDateEdit" name="dateEdit">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-             <property name="buttonSymbols">
-              <enum>QAbstractSpinBox::NoButtons</enum>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="label_5">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>起始日期</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="label_6">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>结束日期</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0" colspan="2">
-            <widget class="QPushButton" name="pushButton_2">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>查询</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-       </layout>
-      </widget>
+         </row>
+         <row>
+          <property name="text">
+           <string>新建行</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>新建行</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>新建行</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>新建行</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>新建行</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>新建行</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>新建行</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>新建行</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>新建行</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>新建行</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>新建行</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>新建行</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>新建行</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>新建行</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>新建行</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>新建行</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>新建行</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>新建行</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>新建行</string>
+          </property>
+         </row>
+         <row>
+          <property name="text">
+           <string>新建行</string>
+          </property>
+         </row>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <row/>
+         <column>
+          <property name="text">
+           <string>时间</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>温度/℃</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>湿度/%RH</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>甲醛/mg/m3</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>二氧化碳/ppm</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>电池电压/V</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QDateEdit" name="dateEdit_2">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="buttonSymbols">
+          <enum>QAbstractSpinBox::NoButtons</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QDateEdit" name="dateEdit">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="buttonSymbols">
+          <enum>QAbstractSpinBox::NoButtons</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0" colspan="2">
+        <widget class="QPushButton" name="pushButton_2">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>查询</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="2">
+        <widget class="QProgressBar" name="progressBar">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="value">
+          <number>24</number>
+         </property>
+         <property name="textVisible">
+          <bool>false</bool>
+         </property>
+         <property name="textDirection">
+          <enum>QProgressBar::TopToBottom</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </item>
    </layout>

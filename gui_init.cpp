@@ -17,13 +17,16 @@ int GUI_INIT::getFontByPt(int Pt)
     return (int)(this->height * 72.0 / this->DPI * this->getScaleByPt(Pt));
 }
 
+void MainWindow::phone_disconn()
+{
+    changeOnlineState(PHONE_DISCONNECT);
+}
+
+
+
 void MainWindow::Gui_init()
 {
-    //未连接时隐藏无关插件
-    ui->label_3->setEnabled(false);
-    ui->groupBox->setEnabled(false);
-    ui->label_4->setEnabled(false);
-    ui->scrollArea->setEnabled(false);
+    changeOnlineState(PHONE_DISCONNECT);
     //屏幕适配
     gui_init.screen = QGuiApplication::primaryScreen();
     gui_init.DPI = gui_init.screen->logicalDotsPerInch();
@@ -68,6 +71,17 @@ void MainWindow::Gui_init()
                                     border-radius:%2px;\
                                     }")
                                 .arg(QString::number(gui_init.getPixByPt(1))).arg(QString::number(gui_init.getPixByPt(8))));
+    ui->progressBar->setStyleSheet(QString("QProgressBar{\
+                                           border:%1px groove gray;\
+                                           border-radius:%2px;\
+                                           }\
+                                           QProgressBar::chunk {\
+                                           border:%1px;\
+                                           border-color:rgb(103,192,240);\
+                                           border-radius:%2px;\
+                                           background:rgb(103,192,240);\
+                                            }")
+                                       .arg(QString::number(gui_init.getPixByPt(1))).arg(QString::number(gui_init.getPixByPt(8))));
     //历史数据栏目
     ui->pushButton_2->setStyleSheet(QString("QPushButton{\
                                   border:%1px groove gray;\
@@ -89,6 +103,7 @@ void MainWindow::Gui_init()
     ui->label_5->setMinimumHeight(gui_init.getPixByPt( ui->label_5->font().pointSize()) * 2);
     ui->label_6->setMinimumHeight(gui_init.getPixByPt( ui->label_6->font().pointSize()) * 2);
     ui->pushButton_2->setMinimumHeight(gui_init.getPixByPt( ui->pushButton_2->font().pointSize()) * 3);
+    ui->progressBar->setMinimumHeight(gui_init.getPixByPt( ui->pushButton_2->font().pointSize()) * 3);
     //触摸滚轮
     gui_init.sc_lasted = QScroller::scroller(ui->tableWidget_3);
     QScroller::ScrollerGestureType gesture_lasted = QScroller::TouchGesture;
@@ -97,4 +112,18 @@ void MainWindow::Gui_init()
     gui_init.sc_history = QScroller::scroller(ui->tableWidget);
     QScroller::ScrollerGestureType gesture_history = QScroller::TouchGesture;
     gui_init.sc_history->grabGesture(ui->tableWidget,gesture_history);
+
+
+    //读本地保存的ID
+    QString dev_id = operateLocalID(LOCAL_ID_READ,"");
+    if(!dev_id.isNull())
+    {
+        ui->lineEdit->setText(dev_id);
+    }
+
+    //设置历史表格宽度
+    ui->tableWidget->resizeColumnToContents(3);
+    ui->tableWidget->resizeColumnToContents(4);
+
+
 }
