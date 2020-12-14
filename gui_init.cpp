@@ -1,3 +1,4 @@
+#include <QDateTime>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "gui_init.h"
@@ -125,5 +126,8 @@ void MainWindow::Gui_init()
     ui->tableWidget->resizeColumnToContents(3);
     ui->tableWidget->resizeColumnToContents(4);
 
+    //自动设置历史查询时间，默认为当前日期后一天的31天前
+    ui->dateEdit_2->setDate(QDate::currentDate().addDays(1));
+    ui->dateEdit->setDate(ui->dateEdit_2->date().addDays(-31));
 
 }

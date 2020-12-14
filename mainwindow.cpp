@@ -226,27 +226,35 @@ void MainWindow::on_pushButton_2_clicked()
     }
     else
     {
-        ui->pushButton_2->setVisible(false);
-        ui->progressBar->setVisible(true);
-        ui->progressBar->setValue(0);
-        ui->tableWidget->clearContents();
+        if(endTick - startTick > 31*24*3600)
+        {
+            QMessageBox::information(this,"","最大支持起止时间一个月");
+        }
+        else
+        {
+            ui->pushButton_2->setVisible(false);
+            ui->progressBar->setVisible(true);
+            ui->progressBar->setValue(0);
+            ui->tableWidget->clearContents();
 
-        table_cur_row = 0;
-        table_total_row = 0;
+            table_cur_row = 0;
+            table_total_row = 0;
 
-        res = proc.deal_record(startTick,endTick,ui->lineEdit->text());
-        if(res == PROC_TIMEOUT)
-        {
-            QMessageBox::information(this,"","通讯超时");
+            res = proc.deal_record(startTick,endTick,ui->lineEdit->text());
+            if(res == PROC_TIMEOUT)
+            {
+                QMessageBox::information(this,"","通讯超时");
+            }
+            else if(res == PROC_ERR)
+            {
+                QMessageBox::information(this,"","记录未找到");
+            }
+            else if(res == PROC_OK)
+            {
+                QMessageBox::information(this,"","读取成功,共" + QString::number(table_total_row) + "条记录");
+            }
         }
-        else if(res == PROC_ERR)
-        {
-            QMessageBox::information(this,"","记录未找到");
-        }
-        else if(res == PROC_OK)
-        {
-            QMessageBox::information(this,"","读取成功,共" + QString::number(table_total_row) + "条记录");
-        }
+
     }
 
     table_cur_row = 0;

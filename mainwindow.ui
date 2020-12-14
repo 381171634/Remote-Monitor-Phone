@@ -547,6 +547,23 @@ QScrollBar::add-line:vertical {
          <property name="buttonSymbols">
           <enum>QAbstractSpinBox::NoButtons</enum>
          </property>
+         <property name="dateTime">
+          <datetime>
+           <hour>0</hour>
+           <minute>0</minute>
+           <second>0</second>
+           <year>2020</year>
+           <month>1</month>
+           <day>1</day>
+          </datetime>
+         </property>
+         <property name="maximumDate">
+          <date>
+           <year>2106</year>
+           <month>2</month>
+           <day>7</day>
+          </date>
+         </property>
         </widget>
        </item>
        <item row="1" column="0">
@@ -562,6 +579,26 @@ QScrollBar::add-line:vertical {
          </property>
          <property name="buttonSymbols">
           <enum>QAbstractSpinBox::NoButtons</enum>
+         </property>
+         <property name="dateTime">
+          <datetime>
+           <hour>0</hour>
+           <minute>0</minute>
+           <second>0</second>
+           <year>2020</year>
+           <month>1</month>
+           <day>1</day>
+          </datetime>
+         </property>
+         <property name="maximumDateTime">
+          <datetime>
+           <hour>23</hour>
+           <minute>59</minute>
+           <second>59</second>
+           <year>2106</year>
+           <month>2</month>
+           <day>7</day>
+          </datetime>
          </property>
         </widget>
        </item>
