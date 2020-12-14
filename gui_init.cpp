@@ -37,6 +37,7 @@ void MainWindow::Gui_init()
     ui->pushButton->setFont(QFont("Consolas", gui_init.getFontByPt(16)));
     ui->label_2->setFont(QFont("Consolas", gui_init.getFontByPt(2)));
     ui->tableWidget_3->setFont(QFont("Consolas", gui_init.getFontByPt(12)));
+    ui->tableWidget_3->horizontalHeader()->setFont(QFont("Consolas", gui_init.getFontByPt(12)));
     ui->label_3->setFont(QFont("Consolas", gui_init.getFontByPt(12)));
     ui->label_4->setFont(QFont("Consolas", gui_init.getFontByPt(12)));
     ui->label_7->setFont(QFont("Consolas", gui_init.getFontByPt(12)));
@@ -44,8 +45,12 @@ void MainWindow::Gui_init()
     //历史数据栏
     ui->label_5->setFont(QFont("Consolas", gui_init.getFontByPt(12)));
     ui->label_6->setFont(QFont("Consolas", gui_init.getFontByPt(12)));
+    ui->dateEdit->setFont(QFont("Consolas", gui_init.getFontByPt(16)));
+    ui->dateEdit_2->setFont(QFont("Consolas", gui_init.getFontByPt(16)));
     ui->pushButton_2->setFont(QFont("Consolas", gui_init.getFontByPt(16)));
-    //ui->tableWidget_3->horizontalHeader()->setFont(QFont("Consolas", gui_init.getFontByPt(12)));
+    ui->tableWidget->setFont(QFont("Consolas", gui_init.getFontByPt(12)));
+    ui->tableWidget->horizontalHeader()->setFont(QFont("Consolas", gui_init.getFontByPt(12)));
+    //
     //设置各插件样式表
     ui->pushButton->setStyleSheet(QString("QPushButton{\
                                   border:%1px groove gray;\
@@ -123,6 +128,9 @@ void MainWindow::Gui_init()
     }
 
     //设置历史表格宽度
+    //ui->tableWidget_3->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    //ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
     ui->tableWidget->resizeColumnToContents(3);
     ui->tableWidget->resizeColumnToContents(4);
 
