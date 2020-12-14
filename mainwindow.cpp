@@ -17,6 +17,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    changeOnlineState(PHONE_DISCONNECT);
+    proc.socket.disconnectFromHost();
+    proc.timer.stop();
     delete ui;
 }
 
@@ -57,10 +60,6 @@ void MainWindow::changeOnlineState(int type)
         ui->label_8->setVisible(false);
         ui->lineEdit->setEnabled(false);
         ui->pushButton->setText(QString("断开连接"));
-
-
-
-
     }
 
 }
@@ -78,6 +77,7 @@ void MainWindow::on_pushButton_clicked()
             connect(&proc.socket,SIGNAL(disconnected()),&proc,SLOT(phone_disconn()));
             connect(&proc.socket,SIGNAL(disconnected()),this,SLOT(phone_disconn()));
             connect(&proc,SIGNAL(update_record()),this,SLOT(update_record()));
+
             res = proc.phone_online(ui->lineEdit->text());
             if(res == PROC_OK)
             {
@@ -96,11 +96,14 @@ void MainWindow::on_pushButton_clicked()
                 {
                     QMessageBox::information(this,"","设备未找到");
                 }
+
+                changeOnlineState(PHONE_DISCONNECT);
             }
         }
         else
         {
-            QMessageBox::information(this,"","服务器连接超时");
+            QMessageBox::information(this,"","服务器连接失败");
+            changeOnlineState(PHONE_DISCONNECT);
         }
 
         ui->pushButton->setEnabled(true);
@@ -196,6 +199,8 @@ void MainWindow::update_record()
     ui->tableWidget->resizeColumnToContents(4);
 
     proc.flag_record_ui_ok = 1;
+
+    ui->tableWidget->scrollToBottom();
 }
 
 void MainWindow::on_pushButton_2_clicked()
@@ -213,7 +218,7 @@ void MainWindow::on_pushButton_2_clicked()
 
     if(endTick == startTick)
     {
-        QMessageBox::information(this,"","起始时间不可一致");
+        QMessageBox::information(this,"","起止时间不可一致");
     }
     else if(endTick < startTick)
     {
@@ -224,6 +229,7 @@ void MainWindow::on_pushButton_2_clicked()
         ui->pushButton_2->setVisible(false);
         ui->progressBar->setVisible(true);
         ui->progressBar->setValue(0);
+        ui->tableWidget->clearContents();
 
         table_cur_row = 0;
         table_total_row = 0;

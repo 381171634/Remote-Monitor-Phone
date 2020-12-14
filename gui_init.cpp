@@ -77,9 +77,9 @@ void MainWindow::Gui_init()
                                            }\
                                            QProgressBar::chunk {\
                                            border:%1px;\
-                                           border-color:rgb(103,192,240);\
+                                           border-color:rgb(40,160,224);\
                                            border-radius:%2px;\
-                                           background:rgb(103,192,240);\
+                                           background:rgb(40,160,224);\
                                             }")
                                        .arg(QString::number(gui_init.getPixByPt(1))).arg(QString::number(gui_init.getPixByPt(8))));
     //历史数据栏目
