@@ -138,4 +138,14 @@ void MainWindow::Gui_init()
     ui->dateEdit_2->setDate(QDate::currentDate().addDays(1));
     ui->dateEdit->setDate(ui->dateEdit_2->date().addDays(-31));
 
+    //设置label显示大logo
+    QImage Image;
+    Image.load(":/resource/pic/pic_icon.png");
+    QPixmap pixmap = QPixmap::fromImage(Image);
+    int with = ui->label_8->width();
+    int height = ui->label_8->height();
+    //QPixmap fitpixmap = pixmap.scaled(with, height, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);  // 饱满填充
+    QPixmap fitpixmap = pixmap.scaled(gui_init.screen->availableSize().width(), gui_init.screen->availableSize().height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);  // 按比例缩放
+    ui->label_8->setPixmap(fitpixmap);
+
 }
