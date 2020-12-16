@@ -26,11 +26,11 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    GUI_INIT gui_init;
-    PROC     proc;
+    GUI_INIT gui_init;                  //界面初始化类
+    PROC     proc;                      //协议通道类
 
-    uint16_t table_total_row = 0;
-    uint16_t table_cur_row = 0;
+    uint16_t table_total_row = 0;       //历史记录总行数
+    uint16_t table_cur_row = 0;         //当前行数
 
     void Gui_init();
     void changeOnlineState(int type);

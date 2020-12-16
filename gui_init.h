@@ -9,8 +9,8 @@
 class GUI_INIT
 {
 public:
-    int DPI;
-    int height;
+    int DPI;                                //分辨率
+    int height;                             //高 像素
     QScroller *sc_lasted = nullptr;
     QScroller *sc_history = nullptr;
     QScreen *screen = nullptr;

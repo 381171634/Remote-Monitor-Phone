@@ -1,7 +1,19 @@
+/*
+ ============================================================================
+ Name        : proc.cpp
+ Author      : wy
+ Version     :
+ Copyright   : Your copyright notice
+ Description : 协议处理
+ ============================================================================
+ */
 #include "proc.h"
 #include "string.h"
 #include <QtDebug>
 
+/*============================================================================
+ 构造函数，心跳起跳
+ ============================================================================*/
 PROC::PROC()
 {
     connect(&timer,SIGNAL(timeout()),this,SLOT(tickInc()));
@@ -9,6 +21,9 @@ PROC::PROC()
 
 }
 
+/*============================================================================
+ 时间戳增加
+ ============================================================================*/
 void PROC::tickInc()
 {
     static int heartBeatCnt = 0;
@@ -21,6 +36,9 @@ void PROC::tickInc()
     }
 }
 
+/*============================================================================
+ 发送与云服务器的心跳报文
+ ============================================================================*/
 void PROC::heartBeat()
 {
     uint8_t buf[6] = {0xA5,0x5A,0x01,0x00,0x01,0x01};
@@ -28,11 +46,20 @@ void PROC::heartBeat()
     qDebug()<<"heart beat";
 }
 
+/*============================================================================
+ 手机断开连接
+ ============================================================================*/
 void PROC::phone_disconn()
 {
     this->phoneState = PHONE_DISCONNECT;
 }
 
+/*============================================================================
+ 报文组包
+ pSrc：报文指针
+ len：长度
+ return：返回报文总长度
+ ============================================================================*/
 static int proc_makeAproc(uint8_t *pSrc,unsigned short len)
 {
     int i;
@@ -54,6 +81,11 @@ static int proc_makeAproc(uint8_t *pSrc,unsigned short len)
     return (len + 2 + 2 + 1);
 }
 
+/*============================================================================
+ 手机上线过程
+ devID：lineEdit传入的ID
+ return：返回procResTypedef类型
+ ============================================================================*/
 int PROC::phone_online(QString devID)
 {
     int res = PROC_OK;
@@ -108,7 +140,13 @@ int PROC::phone_online(QString devID)
     return res;
 }
 
-
+/*============================================================================
+ 手机查询历史记录过程
+ startTick：起始时间
+ endTick：结束时间
+ devID：设备ID
+ return：返回procResTypedef类型
+ ============================================================================*/
 int PROC::deal_record(uint32_t startTick,uint32_t endTick,QString devID)
 {
     int res = PROC_OK;
@@ -154,7 +192,9 @@ int PROC::deal_record(uint32_t startTick,uint32_t endTick,QString devID)
             }
             else
             {
+                //通知界面更新
                 emit update_record();
+                //等待界面更新完成，不存在卡死情况，所以可以死等
                 while(!flag_record_ui_ok);
                 flag_record_ui_ok = 0;
                 if(contentBuf[0] == 0x04)
@@ -181,7 +221,11 @@ int PROC::deal_record(uint32_t startTick,uint32_t endTick,QString devID)
     return res;
 }
 
-
+/*============================================================================
+ 搜报文
+ pSrc：接收数据源
+ len：接收长度
+ ============================================================================*/
 void PROC::getProc(uint8_t *pSrc,uint16_t len)
 {
     int i,j;
@@ -269,6 +313,9 @@ void PROC::getProc(uint8_t *pSrc,uint16_t len)
     }
 }
 
+/*============================================================================
+ 读socket，读到了送入搜报文
+ ============================================================================*/
 void PROC::read_socket()
 {
     QByteArray data;

@@ -6,9 +6,9 @@
 #include <QTimer>
 #include <QCoreApplication>
 
-#define PROC_MAX_LEN 512
-#define SERVER_IP   "106.13.1.239"
-#define SERVER_PORT 8888
+#define PROC_MAX_LEN 512            //协议最大长度
+#define SERVER_IP   "106.13.1.239"  //服务器地址
+#define SERVER_PORT 8888            //服务器端口号
 
 typedef enum{
     PHONE_ONLINE,
@@ -44,22 +44,22 @@ class PROC:public QObject
     Q_OBJECT
 public:
     PROC();
-    QTcpSocket socket;
-    QTimer timer;
-    volatile uint32_t uwTick = 0;
+    QTcpSocket socket;                      //协议通道的socket
+    QTimer timer;                           //心跳定时器 1s
+    volatile uint32_t uwTick = 0;           //时间戳
 
-    uint8_t phoneState = PHONE_DISCONNECT;
+    uint8_t phoneState = PHONE_DISCONNECT;  //手机状态
 
-    uint8_t contentBuf[PROC_MAX_LEN];
-    uint16_t pWrite_contentBuf = 0;
-    uint16_t proclen = 0;
-    uint8_t state = PROC_FIND_1ST_HEAD;
+    uint8_t contentBuf[PROC_MAX_LEN];       //接受报文缓冲
+    uint16_t pWrite_contentBuf = 0;         //接收报文写指针
+    uint16_t proclen = 0;                   //报文长度
+    uint8_t state = PROC_FIND_1ST_HEAD;     //状态机状态
 
-    volatile int flag_online = 0;
-    volatile int flag_record = 0;
-             int flag_record_ui_ok = 0;
+    volatile int flag_online = 0;           //接收到服务器的上线ack时置1
+    volatile int flag_record = 0;           //接收到服务器的历史记录查询返回报文时置1
+             int flag_record_ui_ok = 0;     //ui界面更新标志
 
-    int phone_online(QString devID);
+    int phone_online(QString devID);        
     void heartBeat();
 
     int deal_record(uint32_t startTick,uint32_t endTick,QString devID);
