@@ -141,7 +141,7 @@ void MainWindow::Gui_init()
     QImage Image;
     Image.load(":/resource/pic/pic_icon.png");
     QPixmap pixmap = QPixmap::fromImage(Image);
-    QPixmap fitpixmap = pixmap.scaled(gui_init.screen->availableSize().width(), gui_init.screen->availableSize().height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);  // 按比例缩放
+    QPixmap fitpixmap = pixmap.scaled(gui_init.screen->availableSize().width() * 0.95, gui_init.screen->availableSize().height() * 0.95, Qt::KeepAspectRatio, Qt::SmoothTransformation);  // 按比例缩放
     ui->label_8->setPixmap(fitpixmap);
 
     //淡入
