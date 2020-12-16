@@ -6,6 +6,7 @@
 #include <QtDebug>
 #include <QScroller>
 #include <QMessageBox>
+
 #include "gui_init.h"
 #include "proc.h"
 namespace Ui {
@@ -44,6 +45,11 @@ private slots:
     void update_record();
 
     void phone_disconn();
+
+    void fadein_lineEdit();
+    void fadein_pushBotton();
+    void fadein_label();
+    void fadein_end();
 
     void on_pushButton_2_clicked();
 

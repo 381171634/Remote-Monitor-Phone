@@ -127,12 +127,11 @@ void MainWindow::Gui_init()
         ui->lineEdit->setText(dev_id);
     }
 
-    //设置历史表格宽度
-    //ui->tableWidget_3->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    //ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    //设置表格宽度
 
-    ui->tableWidget->resizeColumnToContents(3);
-    ui->tableWidget->resizeColumnToContents(4);
+    ui->tableWidget_3->horizontalHeader()->setDefaultSectionSize((int)(gui_init.screen->availableSize().width() / 6 * 1.2));
+    ui->tableWidget->horizontalHeader()->setDefaultSectionSize((int)(gui_init.screen->availableSize().width() / 6 * 1.2));
+
 
     //自动设置历史查询时间，默认为当前日期后一天的31天前
     ui->dateEdit_2->setDate(QDate::currentDate().addDays(1));
@@ -142,10 +141,78 @@ void MainWindow::Gui_init()
     QImage Image;
     Image.load(":/resource/pic/pic_icon.png");
     QPixmap pixmap = QPixmap::fromImage(Image);
-    int with = ui->label_8->width();
-    int height = ui->label_8->height();
-    //QPixmap fitpixmap = pixmap.scaled(with, height, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);  // 饱满填充
     QPixmap fitpixmap = pixmap.scaled(gui_init.screen->availableSize().width(), gui_init.screen->availableSize().height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);  // 按比例缩放
     ui->label_8->setPixmap(fitpixmap);
 
+    //淡入
+    //先蒙版遮住
+    gui_init.m_grah[0] = new QGraphicsOpacityEffect(ui->label_8);
+    gui_init.m_grah[0]->setOpacity(0);
+    ui->label_8->setGraphicsEffect(gui_init.m_grah[0]);
+
+    gui_init.m_grah[1] = new QGraphicsOpacityEffect(ui->pushButton);
+    gui_init.m_grah[1]->setOpacity(0);
+    ui->pushButton->setGraphicsEffect(gui_init.m_grah[1]);
+
+    gui_init.m_grah[2] = new QGraphicsOpacityEffect(ui->lineEdit);
+    gui_init.m_grah[2]->setOpacity(0);
+    ui->lineEdit->setGraphicsEffect(gui_init.m_grah[2]);
+
+    gui_init.m_grah[3] = new QGraphicsOpacityEffect(ui->label_7);
+    gui_init.m_grah[3]->setOpacity(0);
+    ui->label_7->setGraphicsEffect(gui_init.m_grah[3]);
+
+    //依次淡入 label-pushbotton-lineedit
+    gui_init.m_proper[0] = new QPropertyAnimation(gui_init.m_grah[0],"opacity",this);
+    gui_init.m_proper[0]->setDuration(800);
+    gui_init.m_proper[0]->setStartValue(0);
+    gui_init.m_proper[0]->setEndValue(1);
+
+    connect(gui_init.m_proper[0],SIGNAL(finished()),this,SLOT(fadein_pushBotton()));
+    gui_init.m_proper[0]->start();
+
+}
+
+void MainWindow::fadein_pushBotton()
+{
+    gui_init.m_proper[1] = new QPropertyAnimation(gui_init.m_grah[1],"opacity",this);
+    gui_init.m_proper[1]->setDuration(300);
+    gui_init.m_proper[1]->setStartValue(0);
+    gui_init.m_proper[1]->setEndValue(1);
+
+    connect(gui_init.m_proper[1],SIGNAL(finished()),this,SLOT(fadein_lineEdit()));
+    gui_init.m_proper[1]->start();
+}
+
+void MainWindow::fadein_lineEdit()
+{
+    gui_init.m_proper[2] = new QPropertyAnimation(gui_init.m_grah[2],"opacity",this);
+    gui_init.m_proper[2]->setDuration(300);
+    gui_init.m_proper[2]->setStartValue(0);
+    gui_init.m_proper[2]->setEndValue(1);
+
+    connect(gui_init.m_proper[2],SIGNAL(finished()),this,SLOT(fadein_label()));
+    gui_init.m_proper[2]->start();
+}
+
+void MainWindow::fadein_label()
+{
+    gui_init.m_proper[3] = new QPropertyAnimation(gui_init.m_grah[3],"opacity",this);
+    gui_init.m_proper[3]->setDuration(100);
+    gui_init.m_proper[3]->setStartValue(0);
+    gui_init.m_proper[3]->setEndValue(1);
+
+    connect(gui_init.m_proper[3],SIGNAL(finished()),this,SLOT(fadein_end()));
+    gui_init.m_proper[3]->start();
+}
+
+void MainWindow::fadein_end()
+{
+    int i;
+
+    for(i = 0;i < 4; i++)
+    {
+        gui_init.m_grah[i]->deleteLater();
+        gui_init.m_proper[i]->deleteLater();
+    }
 }
