@@ -13,6 +13,8 @@ namespace Ui {
 class MainWindow;
 }
 
+#define TVOC_THR        (0.06f)
+
 typedef enum{
     LOCAL_ID_READ =0 ,
     LOCAL_ID_SAVE

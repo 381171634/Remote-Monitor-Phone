@@ -159,7 +159,7 @@ void MainWindow::update_LastSample()
     ui->tableWidget_3->setItem(0,2,new QTableWidgetItem(QString::number((float)data.humidity/1000,'f',2)));
     ui->tableWidget_3->setItem(0,3,new QTableWidgetItem(QString::number((float)data.HCHO/1000/1000*1.341,'f',4)));
     //如果甲醛超标，则标红
-    if((float)data.HCHO/1000/1000*1.341 >= 0.025)
+    if((float)data.HCHO/1000/1000*1.341 >= TVOC_THR)
     {
         ui->tableWidget_3->item(0,3)->setBackgroundColor(QColor(232,80,16));
     }
@@ -205,7 +205,7 @@ void MainWindow::update_record()
         ui->tableWidget->setItem(table_cur_row,2,new QTableWidgetItem(QString::number((float)data.humidity/1000,'f',2)));
         ui->tableWidget->setItem(table_cur_row,3,new QTableWidgetItem(QString::number((float)data.HCHO/1000/1000*1.341,'f',4)));
         //如果甲醛超标，则标红
-        if((float)data.HCHO/1000/1000*1.341 >= 0.025)
+        if((float)data.HCHO/1000/1000*1.341 >= TVOC_THR)
         {
             ui->tableWidget->item(table_cur_row,3)->setBackgroundColor(QColor(232,80,16));
         }
